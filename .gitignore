@@ -21,4 +21,9 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
+
+# Environment variables (ADD THIS SECTION)
+.env.local
+.env*.local
+.env
 *.sw?

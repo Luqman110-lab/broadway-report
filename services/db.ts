@@ -3,8 +3,9 @@ import { createClient } from '@supabase/supabase-js';
 import { Student, Teacher, MarkRecord, SchoolSettings } from "../types";
 
 // --- SUPABASE CONFIGURATION ---
-const SUPABASE_URL = 'https://izhsulkxtqousdzmggbp.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml6aHN1bGt4dHFvdXNkem1nZ2JwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1MjcxMzgsImV4cCI6MjA3OTEwMzEzOH0.ItDALqrSXSPqB2bS-zC7n9gD7E36EVR1Hc7TRmS1N2ME';
+// services/db.ts
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 

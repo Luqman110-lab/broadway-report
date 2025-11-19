@@ -211,9 +211,11 @@ export const Students: React.FC = () => {
         if (viewMode === 'profile') {
             handleBackToList();
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error deleting student:", error);
-        alert("Failed to delete student. Please try again.");
+        // Extract the message to avoid [object Object]
+        const errMsg = error.message || error.error_description || JSON.stringify(error);
+        alert(`Failed to delete student: ${errMsg}`);
       }
     }
   };
@@ -332,18 +334,18 @@ export const Students: React.FC = () => {
           }
   
           if (newStudents.length > 0) {
-            for (const s of newStudents) {
-              await dbService.addStudent(s);
-            }
+            // USE BULK INSERT FOR PERFORMANCE
+            await dbService.addStudents(newStudents);
             alert(`Successfully imported ${newStudents.length} students.`);
             loadStudents();
           } else {
             alert("No valid student records found in CSV. Please check format: pay_code, first_name, last_name, class");
           }
   
-        } catch (error) {
+        } catch (error: any) {
           console.error("CSV Import Error:", error);
-          alert("Error processing CSV file.");
+          const msg = error.message || "Unknown error";
+          alert(`Error processing CSV file: ${msg}`);
         } finally {
           setImporting(false);
           if (fileInputRef.current) fileInputRef.current.value = '';
